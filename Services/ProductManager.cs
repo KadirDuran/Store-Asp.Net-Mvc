@@ -54,6 +54,9 @@ namespace Services
             var entity = _manager.Product.GetOneProduct(product.productId, true);
             entity.productName = product.productName;
             entity.productPrice= product.productPrice;
+            entity.summary = product.summary;
+            entity.imageUrl = product.imageUrl;
+            entity.categoryId= product.categoryId;
             _manager.Save();
         }
     }

@@ -11,7 +11,7 @@ namespace Entities.Models
         public decimal? productPrice { get; set; }
         public int? categoryId { get; set; }
         public string? summary { get; set; } = string.Empty;    
-        public string? imageUrl { get; set; }
+        public string? imageUrl { get; set; } = string.Empty;
         public Category? category { get; set; } 
     }
 }

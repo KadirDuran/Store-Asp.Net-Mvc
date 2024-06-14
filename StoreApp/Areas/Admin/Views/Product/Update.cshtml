@@ -3,6 +3,7 @@
     <div class="display-6">Ürün Güncelle</div>
 </div>
 <form method="Post" asp-action="Update" enctype="multipart/form-data">
+    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 <input class="invisible " asp-for="productId"/>
     <div class="form-group my-3">
         <select class="form-control" asp-for="categoryId" asp-items="@ViewBag.uCategory" ></select>
@@ -19,12 +20,11 @@
     </div>
     
     <div class="form-group my-3">
-        <img class="rounded shadow" width="150" src="@Model?.imageUrl" asp-for="imageUrl?" />
+        <img class="rounded shadow" name="previewImg" width="150" src="@Model?.imageUrl" />
     </div>
     <div class="form-group my-3">
 
-        <input class="form-control " name="file" type="file" />
-
+        <input class="form-control" name="file" type="file" accept="image/*" asp-for="imageUrl"/>
     </div>
 <div class="form-group my-3">
 <div class="btn-group ">

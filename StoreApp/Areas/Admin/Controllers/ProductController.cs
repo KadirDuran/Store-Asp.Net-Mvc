@@ -1,5 +1,6 @@
 ﻿using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Services;
 using Services.Contracts;
@@ -55,28 +56,36 @@ namespace StoreApp.Areas.Admin.Controllers
         }
         public IActionResult Update(int id)
         {
-            ViewBag.uCategory = new SelectList(_services.CategoryService.GetAllCategory(false),"categoryId",
-                "categoryName");
-            return View(_services.ProductService.GetOneProduct(id,false));
+            ViewBag.uCategory = new SelectList(_services.CategoryService.GetAllCategory(false),"categoryId", "categoryName");
+          
+                return View(_services.ProductService.GetOneProduct(id, false));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update([FromForm] Product product, IFormFile file)
+        public async Task<IActionResult> Update([FromForm] Product product, IFormFile? file)
         {
+
             if (ModelState.IsValid)
             {
-                string path = Path.Combine(Directory.GetCurrentDirectory(),
-                    "wwwroot", "images", file.FileName);
-                using (var stream = new FileStream(path, FileMode.Create))
+                if (file != null)
                 {
-                    await file.CopyToAsync(stream);
+                    string path = Path.Combine(Directory.GetCurrentDirectory(),
+                    "wwwroot", "images", file.FileName);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                    product.imageUrl = String.Concat("/images/", file.FileName);
                 }
-                product.imageUrl= String.Concat("/images/", file.FileName);
-                product.categoryId = 2;
-                product.summary = "hebele";
+                else
+                {
+                    product.imageUrl = _services.ProductService.GetOneProduct(product.productId,false).imageUrl;
+
+                }
                 _services.ProductService.uProduct(product);
                 return RedirectToAction("Index");
+
             }
             else { return View(); }
 
@@ -84,8 +93,6 @@ namespace StoreApp.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Delete([FromRoute] int id)
         {
-
-
 
             _services.ProductService.dProduct(id);
             return RedirectToAction("Index");
