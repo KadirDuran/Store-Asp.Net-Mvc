@@ -7,7 +7,9 @@
             <thead>
                 <tr>
                 <th>ID</th>
+                <th>Ürün Görseli</th>
                 <th>Ürün İsmi</th>
+               
                 <th>Ürün Fiyatı</th>
                 <th>İşlemler</th>
             </tr>
@@ -17,7 +19,11 @@
             {
                 <tr>
                     <td>@item.productId</td>
+                    <td>
+                        <img class="border border border-dark rounded" src="@item.imageUrl" alt="@item.productName" width="50" />
+                    </td>
                     <td>@item.productName</td>
+                   
                     <td>@item.productPrice TL</td>
                     <td>
                         <a class="btn btn-warning"  asp-action="Update" asp-route-id="@item.productId"><i class="fa-solid fa-file-pen"></i>Güncelle</a>

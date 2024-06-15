@@ -8,7 +8,7 @@ using Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddRazorPages();
 builder.Services.AddDbContext<RepositoryContext>(options =>
 { 
     options.UseSqlite(builder.Configuration.GetConnectionString("sqlConntection"),
@@ -34,6 +34,8 @@ app.UseEndpoints(endpoints =>
         );
     endpoints.MapControllerRoute(name: "default",
     pattern: "{Controller=Home}/{action=Index}/{id?}");
+
+    endpoints.MapRazorPages();
 });
 
 app.Run();
