@@ -5,7 +5,22 @@
     <div class="card-body">
         <h5 class="card-title">@Model.productName</h5>
         <p class="card-text">@Model.productPrice.ToString()</p>
-        <a class="btn btn-primary" asp-controller="Product" asp-action="Get" asp-route-id="@Model.productId"><i class="fa-solid fa-arrow-right"></i>Detayları Görüntüle</a>
+
+            <p>
+                
+            <a class="btn btn-primary" asp-controller="Product" asp-action="Get" asp-route-id="@Model.productId">
+            <i class="fa-solid fa-arrow-right"></i>Detay</a>
+                <form id="@Model.productId" asp-page="/cartmodel"  method="post">
+                    <input type="hidden" asp-for="@Model.productId" />
+                    <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+               
+                    <button type="submit" class="btn btn-warning float-end">
+                        <i class="fa-solid fa-plus"></i>Sepete Ekle</button>
+                </form>
+               
+                </p>
+       
+           
     </div>
     </div>
 </div>

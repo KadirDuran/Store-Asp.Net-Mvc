@@ -21,8 +21,12 @@
                 </li>
             </ul>
             <ul class="navbar-nav">
-                <a class="nav-link active text-dark" target="_blank" aria-current="page" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin</a>
-
+                <li class="nav-item"> <a class="nav-link active text-dark" target="_blank" aria-current="page" asp-area="" asp-page="/Cart">
+                        <i class="fa-solid fa-cart-shopping"></i>Sepet(@await Component.InvokeAsync("CartSummary"))
+                    </a>
+                </li>
+                  
+               <li class="nav-item"> <a class="nav-link active text-dark" target="_blank" aria-current="page" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin</a></li>
             </ul>
         </div>
     </div>
